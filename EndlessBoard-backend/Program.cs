@@ -6,10 +6,11 @@ using EndlessBoard_backend.classes;
 using Microsoft.Extensions.DependencyInjection;
 using EndlessBoard_backend;
 using Microsoft.AspNetCore.Http;
+using BCrypt.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
 
@@ -18,7 +19,35 @@ builder.Services.AddScoped<BaseAction>();
 
 var app = builder.Build();
 
+string path = "";
 
+app.MapPost($"{path}/api/login/", (string newUsername, string newPasswordHash) =>
+{
+	ApplicationContext db;
+
+	//LOGIN
+
+
+	var value = BCrypt.Net
+
+	if (newUsername != null || passwordHash != null)
+	{
+		var user = db.Users.Where(u => (u.Username == newUsername && u.PasswordHash == passwordHash));
+		if (username != Username)
+		{
+			Console.WriteLine("Пользователь с таким именем не найден");
+		}
+		if (passwordHash != u.PasswordHash)
+		{
+			Console.WriteLine("Пароли не совпадают");
+		}
+	}
+	else
+	{
+		Console.WriteLine("Поля пользователя или пароля не заполнены");
+	}
+
+});
 
 app.MapGet("/", (HttpContext context) =>
 {
