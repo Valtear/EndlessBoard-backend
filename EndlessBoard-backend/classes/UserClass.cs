@@ -2,28 +2,24 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-System.Collections.Generic
+using System.Collections.Generic
 
 
 namespace EndlessBoard_backend.classes
 {
-
     public class User
     {
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Username обязательно для заполнения")]
+        [Required(ErrorMessage = "Username Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г¤Г«Гї Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГї")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "PasswordHash обязательно для заполнения")]
+        [Required(ErrorMessage = "PasswordHash Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Г¤Г«Гї Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГї")]
         public string PasswordHash { get; set; }
         public int? AvatarId { get; set; }
 
-        public List<Comment> Comments { get; set; } = new List<Comment>(); // добавляем к пользователю коллекцию его комментариев, чтобы было как на Reddit
-
+        public List<Comment> Comments { get; set; } = new List<Comment>(); // Г¤Г®ГЎГ ГўГ«ГїГҐГ¬ ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ ГҐГЈГ® ГЄГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГҐГў, Г·ГІГ®ГЎГ» ГЎГ»Г«Г® ГЄГ ГЄ Г­Г  Reddit
         public List <Post> Posts { get; set; } = new List<Post>();
-
-
 
     }
 }
