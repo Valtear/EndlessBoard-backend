@@ -6,6 +6,7 @@ using EndlessBoard_backend.classes;
 using Microsoft.Extensions.DependencyInjection;
 using EndlessBoard_backend;
 using Microsoft.AspNetCore.Http;
+
 using BCrypt.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,24 +21,23 @@ builder.Services.AddScoped<BaseAction>();
 var app = builder.Build();
 
 string path = "";
+ApplicationContext? db = app.Services.GetService<ApplicationContext>();
 
-app.MapPost($"{path}/api/login/", (string newUsername, string newPasswordHash) =>
+app.MapPost($"{path}/api/login/", (string newUsername, string newPassword) =>
 {
-	ApplicationContext db;
+    //LOGIN
 
-	//LOGIN
-
-
-	var value = BCrypt.Net
-
-	if (newUsername != null || passwordHash != null)
+	if (newUsername != null || newPassword != null)
 	{
-		var user = db.Users.Where(u => (u.Username == newUsername && u.PasswordHash == passwordHash));
-		if (username != Username)
+        User user = db.Users.Where(u => (u.Username == newUsername)).First();
+		bool verify = BCrypt.Net.BCrypt.Verify(newPassword,  user.PasswordHash);
+
+		if (newUsername != username)
 		{
 			Console.WriteLine("Пользователь с таким именем не найден");
+            BCrypt.Net.BCrypt.HashPassword(newUsername, newPassword);
 		}
-		if (passwordHash != u.PasswordHash)
+		if (newPassword != db.PasswordHash)
 		{
 			Console.WriteLine("Пароли не совпадают");
 		}

@@ -20,8 +20,12 @@ namespace EndlessBoard_backend.models
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseNpgsql("Data Source=helloapp.db");
+		}
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
     }
